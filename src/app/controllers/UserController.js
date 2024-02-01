@@ -39,7 +39,7 @@ class UserController {
     })
 
     if (userExists) {
-      return response.status(400).json({ error: 'Usuario ja existente' })
+      return response.status(409).json({ error: 'Usuario ja existente' })
     }
     console.log(userExists)
 

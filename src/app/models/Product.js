@@ -11,13 +11,13 @@ class Product extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `http://localhost:3000/product-file/${this.path}`
+            return `http://localhost:3001/product-file/${this.path}`
           },
         },
       },
       {
         sequelize,
-        timestamps: true, // Adicione esta opção
+        timestamps: true,
         tableName: 'products',
       },
     )
