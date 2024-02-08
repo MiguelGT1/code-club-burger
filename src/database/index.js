@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize')
 const moongose = require('mongoose')
 const User = require('../app/models/User')
-const configDatabase = require('../config/database.cjs')
 const Product = require('../app/models/Product')
 const Category = require('../app/models/Category')
 
@@ -14,7 +13,9 @@ class Database {
   }
 
   init() {
-    this.connection = new Sequelize(configDatabase)
+    this.connection = new Sequelize(
+      'postgresql://postgres:1-2acAG62Fbbb4Df1eD1b4fc*5bcC626@roundhouse.proxy.rlwy.net:47309/railway',
+    )
     models
       .map((model) => model.init(this.connection))
       .map(
@@ -24,7 +25,7 @@ class Database {
 
   mongo() {
     this.mongoConnection = moongose.connect(
-      'mongodb://localhost:27017/codeburger',
+      'mongodb://mongo:c6a1GH5EhGfF-AFH2Bc52c5ffC3HhAGD@viaduct.proxy.rlwy.net:50615',
     )
   }
 }

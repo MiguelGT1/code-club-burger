@@ -1,8 +1,8 @@
-// Arquivo: ./src/routes.js
 const { Router } = require('express')
 const multer = require('multer')
-const multerConfig = require('./config/multer')
+const cors = require('cors') // Adicione a importação do cors
 
+const multerConfig = require('./config/multer')
 const UserController = require('./app/controllers/UserController')
 const SessionsController = require('./app/controllers/SessionsController')
 const ProductController = require('./app/controllers/ProductController')
@@ -14,11 +14,14 @@ const upload = multer(multerConfig)
 
 const routes = Router()
 
+// Adicione o middleware cors antes das suas rotas
+routes.use(cors())
+
 routes.post('/users', UserController.store)
 
 routes.post('/sessions', SessionsController.store)
 
-routes.use(authMiddleware) // será chamado para as rotas ABAIXO
+routes.use(authMiddleware)
 
 routes.post('/products', upload.single('file'), ProductController.store)
 routes.get('/products', ProductController.index)

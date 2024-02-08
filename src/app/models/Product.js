@@ -18,7 +18,7 @@ class Product extends Model {
       {
         sequelize,
         timestamps: true,
-        tableName: 'products',
+        tableName: 'Products',
       },
     )
     return this

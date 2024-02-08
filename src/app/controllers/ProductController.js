@@ -48,7 +48,7 @@ class ProductController {
         },
       ],
     })
-    console.log(request.userId)
+
     return response.json(products)
   }
 
