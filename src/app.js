@@ -1,11 +1,21 @@
 const express = require('express')
 const routes = require('./routes.js')
 require('./database')
+const cors = require('cors') // Adicione esta linha para importar o middleware CORS
+
 const { resolve } = require('path')
+
+const corsOptions = {
+  origin: 'https://code-burger-interface-mx6g.vercel.app',
+  credentials: true,
+}
 
 class App {
   constructor() {
     this.app = express()
+
+    this.app.use(cors(corsOptions))
+
     this.middlewares()
     this.routes()
   }
