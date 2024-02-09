@@ -12,7 +12,11 @@ const OrderController = require('./app/controllers/OrderController')
 
 const upload = multer(multerConfig)
 
-const routes = Router()
+const routes = new Router()
+
+routes.get('/', (req, res) => {
+  return res.json({ message: 'Hello to my firts API' })
+})
 
 // Adicione o middleware cors antes das suas rotas
 routes.use(cors())
