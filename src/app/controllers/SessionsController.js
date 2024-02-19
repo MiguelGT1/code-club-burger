@@ -17,32 +17,37 @@ class SessionController {
     }
 
     if (!(await schema.isValid(request.body))) {
-      userEmailOrPasswordIncorrect()
+      return userEmailOrPasswordIncorrect() // Adicionado 'return' aqui
     }
 
     const { email, password } = request.body
 
-    const user = await User.findOne({
-      where: { email },
-    })
+    try {
+      const user = await User.findOne({
+        where: { email },
+      })
 
-    if (!user) {
-      userEmailOrPasswordIncorrect()
+      if (!user) {
+        return userEmailOrPasswordIncorrect() // Adicionado 'return' aqui
+      }
+
+      if (!(await user.checkPassword(password))) {
+        return userEmailOrPasswordIncorrect() // Adicionado 'return' aqui
+      }
+
+      return response.json({
+        id: user.id,
+        email,
+        name: user.name,
+        admin: user.admin,
+        token: jwt.sign({ id: user.id, name: user.name }, authConfig.secret, {
+          expiresIn: authConfig.expiresIn,
+        }),
+      })
+    } catch (error) {
+      console.error('Error in SessionController:', error)
+      return response.status(500).json({ error: 'Internal Server Error' })
     }
-
-    if (!(await user.checkPassword(password))) {
-      userEmailOrPasswordIncorrect()
-    }
-
-    return response.json({
-      id: user.id,
-      email,
-      name: user.name,
-      admin: user.admin,
-      token: jwt.sign({ id: user.id, name: user.name }, authConfig.secret, {
-        expiresIn: authConfig.expiresIn,
-      }),
-    })
   }
 }
 
