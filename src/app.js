@@ -6,7 +6,7 @@ const cors = require('cors') // Adicione esta linha para importar o middleware C
 const { resolve } = require('path')
 
 const corsOptions = {
-  origin: 'https://code-burger-interface-mx6g.vercel.app',
+  origin: 'https://juliacakes.vercel.app',
   credentials: true,
 }
 
